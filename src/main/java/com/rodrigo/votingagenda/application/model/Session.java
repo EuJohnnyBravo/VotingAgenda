@@ -17,7 +17,8 @@ import java.util.UUID;
 public class Session {
     @Id
     private UUID id;
-    private String agendaId;
+    private UUID agendaId;
     private Set<Vote> votes;
     private Instant createdAt;
+    private int durationInMinutes;
 }
