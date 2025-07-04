@@ -2,10 +2,12 @@ package com.rodrigo.votingagenda.contract.agenda;
 
 import com.rodrigo.votingagenda.application.service.AddSessionToAgendaService;
 import com.rodrigo.votingagenda.application.service.CreateAgendaService;
+import com.rodrigo.votingagenda.application.service.GetAllAgendaService;
 import com.rodrigo.votingagenda.application.service.VoteToSessionService;
 import com.rodrigo.votingagenda.contract.agenda.request.AgendaRequest;
 import com.rodrigo.votingagenda.contract.agenda.request.VoteRequest;
-import com.rodrigo.votingagenda.contract.agenda.response.AgendaReponse;
+import com.rodrigo.votingagenda.contract.agenda.response.AgendaShortReponse;
+import com.rodrigo.votingagenda.contract.agenda.response.GetAllAgendaResponse;
 import com.rodrigo.votingagenda.contract.agenda.response.SessionResponse;
 import com.rodrigo.votingagenda.contract.agenda.response.VoteResponse;
 import jakarta.validation.Valid;
@@ -22,9 +24,10 @@ public class AgendaContract {
     private final CreateAgendaService createAgenda;
     private final AddSessionToAgendaService addSessionToAgendaService;
     private final VoteToSessionService voteToSession;
+    private final GetAllAgendaService getAllAgenda;
 
     @PostMapping
-    public ResponseEntity<AgendaReponse> createAgenda(@Valid @RequestBody AgendaRequest payload) {
+    public ResponseEntity<AgendaShortReponse> createAgenda(@Valid @RequestBody AgendaRequest payload) {
         return createAgenda.createAgenda(payload);
     }
 
@@ -35,7 +38,7 @@ public class AgendaContract {
         return addSessionToAgendaService.addSessionToAgenda(id, duration);
     }
 
-    @PostMapping("/{id}/{sessionId}/vote")
+    @PostMapping("/{id}/session={sessionId}/vote")
     public ResponseEntity<VoteResponse> voteToSession(
             @Valid @PathVariable @NotNull String id,
             @Valid @PathVariable @NotNull String sessionId,
@@ -43,6 +46,9 @@ public class AgendaContract {
         return voteToSession.voteToSession(payload, id, sessionId);
     }
 
-
+    @GetMapping()
+    public ResponseEntity<GetAllAgendaResponse> getAllAgendas() {
+        return getAllAgenda.getAllAgenda();
+    }
 
 }

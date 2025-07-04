@@ -26,14 +26,14 @@ public class Session {
     private int durationInMinutes;
     private boolean isClosed = false;
 
+    public void closeSession() {
+        this.closedAt = Instant.now();
+        this.isClosed = true;
+    }
+
     public void setVotes(Vote vote){
         if(this.votes.stream().anyMatch(v -> v.getCpf().equals(vote.getCpf()))){
             throw new InvalidVoteException("CPF: " + vote.getCpf() + " já votou");
-        }
-
-        if(vote.getVotedAt().isAfter(this.createdAt.plusSeconds(this.durationInMinutes * 60L))){
-            this.isClosed = true;
-            throw new InvalidVoteException("Sessão fechada: " + vote.getSessionId());
         }
         this.votes.add(vote);
     }

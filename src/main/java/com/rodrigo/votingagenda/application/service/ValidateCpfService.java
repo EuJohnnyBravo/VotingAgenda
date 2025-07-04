@@ -1,0 +1,9 @@
+package com.rodrigo.votingagenda.application.service;
+
+import lombok.Builder;
+import org.springframework.stereotype.Service;
+
+@Service
+@Builder
+public class ValidateCpfService {
+}

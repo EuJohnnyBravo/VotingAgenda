@@ -7,6 +7,7 @@ import com.rodrigo.votingagenda.application.repository.AgendaRepository;
 import com.rodrigo.votingagenda.application.repository.SessionRepository;
 import com.rodrigo.votingagenda.application.repository.VoteRepository;
 import com.rodrigo.votingagenda.common.enums.Votes;
+import com.rodrigo.votingagenda.common.exception.custom.InvalidVoteException;
 import com.rodrigo.votingagenda.common.exception.custom.NotFoundException;
 import com.rodrigo.votingagenda.contract.agenda.request.VoteRequest;
 import com.rodrigo.votingagenda.contract.agenda.response.VoteResponse;
@@ -30,6 +31,10 @@ public class VoteToSessionService {
                 .orElseThrow(() -> new NotFoundException("Pauta não encontrada com o ID: " + agendaId));
         Session session = sessionRepository.findById(UUID.fromString(sessionId))
                 .orElseThrow(() -> new NotFoundException("Sessão não encontrada com o ID: " + sessionId));
+
+        if (session.isClosed()) {
+            throw new InvalidVoteException("Sessão já fechada");
+        }
 
         Vote vote = new Vote();
         vote.setId(UUID.randomUUID());
