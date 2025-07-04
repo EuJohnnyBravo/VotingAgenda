@@ -4,6 +4,7 @@ import com.rodrigo.votingagenda.common.exception.custom.VotingAgendaBaseExceptio
 import com.rodrigo.votingagenda.contract.exception.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,6 +17,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleVotingAgendaBaseException(VotingAgendaBaseException ex){
         return ResponseEntity.status(ex.getHttpStatus())
                 .body(new ExceptionResponse(ex.getErrors()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+        List<String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .toList();
+
+        return ResponseEntity.badRequest().body(new ExceptionResponse(errors));
     }
 
     @ExceptionHandler(Exception.class)
