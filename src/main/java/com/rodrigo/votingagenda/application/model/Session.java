@@ -20,5 +20,6 @@ public class Session {
     private UUID agendaId;
     private Set<Vote> votes;
     private Instant createdAt;
+    private Instant closedAt;
     private int durationInMinutes;
 }

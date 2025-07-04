@@ -17,7 +17,8 @@ import java.util.UUID;
 public class Vote {
     @Id
     private UUID id;
-    private String sessionId;
+    private UUID sessionId;
+    private UUID agendaId;
     private String cpf;
     private Instant votedAt;
     private Votes vote;
