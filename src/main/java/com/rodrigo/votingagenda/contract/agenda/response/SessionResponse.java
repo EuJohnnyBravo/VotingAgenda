@@ -1,4 +1,4 @@
-package com.rodrigo.votingagenda.contract.session.request;
+package com.rodrigo.votingagenda.contract.agenda.response;
 
 import java.util.UUID;
 

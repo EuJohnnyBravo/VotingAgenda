@@ -5,15 +5,13 @@ import com.rodrigo.votingagenda.application.model.Session;
 import com.rodrigo.votingagenda.application.repository.AgendaRepository;
 import com.rodrigo.votingagenda.application.repository.SessionRepository;
 import com.rodrigo.votingagenda.common.exception.custom.NotFoundException;
-import com.rodrigo.votingagenda.contract.session.request.SessionResponse;
+import com.rodrigo.votingagenda.contract.agenda.response.SessionResponse;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.UUID;
 
 @Service
@@ -31,8 +29,6 @@ public class AddSessionToAgendaService {
         session.setId(UUID.randomUUID());
         session.setAgendaId(UUID.fromString(id));
         session.setCreatedAt(Instant.now());
-        session.setClosedAt(Instant.now().plus(Duration.ofMinutes(duration)));
-        session.setVotes(new HashSet<>());
         session.setDurationInMinutes(duration);
 
         Session savedSession = sessionRepository.save(session);

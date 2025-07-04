@@ -1,5 +1,6 @@
 package com.rodrigo.votingagenda.common.enums;
 
+import com.rodrigo.votingagenda.common.exception.custom.InvalidVoteException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -20,7 +21,7 @@ public enum Votes {
                 return voto;
             }
         }
-        throw new IllegalArgumentException("Voto inválido: " + valor);
+        throw new InvalidVoteException("Voto inválido: " + valor);
     }
 
 }
