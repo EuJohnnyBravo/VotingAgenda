@@ -22,6 +22,7 @@ public class VoteSessionService {
 
     private final SessionRepository sessionRepository;
     private final VoteRepository voteRepository;
+    private final ValidateCpfService validateCpfService;
 
     public ResponseEntity<VoteResponse> voteSession(VoteRequest payload, String sessionId){
         Session session = sessionRepository.findById(UUID.fromString(sessionId))
@@ -34,6 +35,10 @@ public class VoteSessionService {
         if(voteRepository.existsBySessionIdAndCpf(session.getId(), payload.cpf())){
             throw new InvalidVoteException("CPF já votou nesta sessão: " + payload.cpf() + " : " + sessionId);
         }
+
+//        if(!validateCpfService.canVote(payload.cpf())){
+//            throw new InvalidVoteException("CPF invalido para votar: " + payload.cpf());
+//        }
 
         Vote vote = new Vote();
         vote.setId(UUID.randomUUID());
