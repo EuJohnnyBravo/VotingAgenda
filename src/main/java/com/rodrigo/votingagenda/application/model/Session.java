@@ -1,6 +1,5 @@
 package com.rodrigo.votingagenda.application.model;
 
-import com.rodrigo.votingagenda.common.exception.custom.InvalidVoteException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Document(collection = "sessions")
@@ -20,21 +17,13 @@ public class Session {
     @Id
     private UUID id;
     private UUID agendaId;
-    private Set<Vote> votes = new HashSet<>();
     private Instant createdAt;
     private Instant closedAt;
     private int durationInMinutes;
-    private boolean isClosed = false;
+    private boolean closed = false;
 
     public void closeSession() {
         this.closedAt = Instant.now();
-        this.isClosed = true;
-    }
-
-    public void setVotes(Vote vote){
-        if(this.votes.stream().anyMatch(v -> v.getCpf().equals(vote.getCpf()))){
-            throw new InvalidVoteException("CPF: " + vote.getCpf() + " já votou");
-        }
-        this.votes.add(vote);
+        this.closed = true;
     }
 }

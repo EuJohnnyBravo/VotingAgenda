@@ -6,4 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.UUID;
 
 public interface VoteRepository extends MongoRepository<Vote, UUID> {
+    boolean existsBySessionIdAndCpf(UUID sessionId, String cpf);
 }

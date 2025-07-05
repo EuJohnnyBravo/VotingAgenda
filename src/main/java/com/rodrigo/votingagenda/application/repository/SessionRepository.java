@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SessionRepository extends MongoRepository<Session, UUID> {
-    List<Session> findByIsClosedFalse();
+    List<Session> findByClosedFalse();
 
 }

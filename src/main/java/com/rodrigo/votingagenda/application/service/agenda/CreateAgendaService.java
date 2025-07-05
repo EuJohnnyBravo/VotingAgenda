@@ -1,4 +1,4 @@
-package com.rodrigo.votingagenda.application.service;
+package com.rodrigo.votingagenda.application.service.agenda;
 
 import com.rodrigo.votingagenda.application.model.Agenda;
 import com.rodrigo.votingagenda.application.repository.AgendaRepository;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -22,7 +21,6 @@ public class CreateAgendaService {
         agenda.setId(UUID.randomUUID());
         agenda.setTitle(payload.title());
         agenda.setDescription(payload.description());
-        agenda.setSessions(new ArrayList<>());
         agenda.setCreatedAt(Instant.now());
         agenda.setUpdatedAt(Instant.now());
 

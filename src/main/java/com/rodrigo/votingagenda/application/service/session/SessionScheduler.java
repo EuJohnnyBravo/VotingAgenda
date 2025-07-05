@@ -1,4 +1,4 @@
-package com.rodrigo.votingagenda.application.service;
+package com.rodrigo.votingagenda.application.service.session;
 
 import com.rodrigo.votingagenda.application.model.Session;
 import com.rodrigo.votingagenda.application.repository.SessionRepository;
@@ -17,7 +17,7 @@ public class SessionScheduler {
 
     @Scheduled(fixedRate = 5000)
     public void schedule() {
-        List<Session> openSessions = sessionRepository.findByIsClosedFalse();
+        List<Session> openSessions = sessionRepository.findByClosedFalse();
         openSessions.forEach(session -> {
             Instant now = Instant.now();
             Instant endOfSession = session.getCreatedAt().plusSeconds(session.getDurationInMinutes() + 60L);

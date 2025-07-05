@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Document(collection = "agendas")
@@ -19,7 +18,6 @@ public class Agenda {
     private UUID id;
     private String title;
     private String description;
-    private List<Session> sessions;
     private Instant createdAt;
     private Instant updatedAt;
 }

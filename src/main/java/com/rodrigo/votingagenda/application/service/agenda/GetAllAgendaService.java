@@ -1,4 +1,4 @@
-package com.rodrigo.votingagenda.application.service;
+package com.rodrigo.votingagenda.application.service.agenda;
 
 import com.rodrigo.votingagenda.application.repository.AgendaRepository;
 import com.rodrigo.votingagenda.contract.agenda.response.AgendaResponse;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Builder
@@ -19,14 +18,13 @@ public class GetAllAgendaService {
     public ResponseEntity<GetAllAgendaResponse> getAllAgenda(){
         List<AgendaResponse> response = agendaRepository.findAll()
                 .stream()
-                .map(agenda -> {
-                    return new AgendaResponse(
-                            agenda.getId(),
-                            agenda.getTitle(),
-                            agenda.getDescription(),
-                            agenda.getCreatedAt()
-                    );
-                }).toList();
+                .map(agenda -> new AgendaResponse(
+                        agenda.getId(),
+                        agenda.getTitle(),
+                        agenda.getDescription(),
+                        agenda.getCreatedAt(),
+                        agenda.getUpdatedAt()
+                )).toList();
         return ResponseEntity.ok(new GetAllAgendaResponse(response));
 
     }

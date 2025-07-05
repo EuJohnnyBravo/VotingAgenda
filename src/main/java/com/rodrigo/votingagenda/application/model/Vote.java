@@ -1,6 +1,5 @@
 package com.rodrigo.votingagenda.application.model;
 
-import com.rodrigo.votingagenda.common.enums.Votes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +20,5 @@ public class Vote {
     private UUID agendaId;
     private String cpf;
     private Instant votedAt;
-    private Votes vote;
+    private boolean vote;
 }

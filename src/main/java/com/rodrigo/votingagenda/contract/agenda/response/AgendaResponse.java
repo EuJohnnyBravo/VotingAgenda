@@ -7,6 +7,7 @@ public record AgendaResponse(
         UUID id,
         String title,
         String description,
-        Instant createdAt
+        Instant createdAt,
+        Instant updatedAt
 ) {
 }
