@@ -14,6 +14,7 @@ import java.util.List;
 public class SessionScheduler {
 
     private final SessionRepository sessionRepository;
+    private final SessionService sessionService;
 
     @Scheduled(fixedRate = 5000)
     public void schedule() {
@@ -25,7 +26,7 @@ public class SessionScheduler {
             if (now.isAfter(endOfSession)) {
                 session.closeSession();
                 sessionRepository.save(session);
-                System.out.println("Sessão fechada em: " + now);
+                sessionService.closeAndNotify(session.getId());
             }
         });
     }
